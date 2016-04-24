@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+            crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            padding-top: 50px;
+        }
+
+        .container-fluid {
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 50px;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .left-box {
+            width: 250px;
+            position: absolute;
+            overflow: auto;
+            background-color: #ffffff;
+            z-index: 99;
+            top: 50px;
+            bottom: 0;
+            padding: 15px 20px;
+        }
+
+        .row-custom {
+            margin-left: 3px;
+        }
+
+        .head {
+            font-weight: bold;
+        }
+
+        label {
+            font-weight: normal;
+        }
+
+        #map {
+            background-color: black;
+        }
+    </style>
+    <script>
+        var map;
+        var faisalabad = {lat: 31.4181, lng: 73.0776};
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: {lat: -34.397, lng: 150.644},
+                zoom: 10,
+                mapTypeControl: true,
+                mapTypeControlOptions: {
+                    position: google.maps.ControlPosition.RIGHT_TOP
+                }
+
+            });
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    map.setCenter(pos);
+                })
+            }
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng({lat: 53.9313, lng: 27.7599}),
+                map: map
+            })
+
+            var myMarker = new google.maps.Marker({
+                map: map,
+                animation: google.maps.Animation.DROP,
+                position: faisalabad
+            });
+            addMyLocationButton(map, myMarker);
+
+            function addMyLocationButton(map, marker) {
+                var controlDiv = document.createElement('div');
+
+                var firstChild = document.createElement('button');
+                firstChild.style.backgroundColor = '#fff';
+                firstChild.style.border = 'none';
+                firstChild.style.outline = 'none';
+                firstChild.style.width = '28px';
+                firstChild.style.height = '28px';
+                firstChild.style.borderRadius = '2px';
+                firstChild.style.boxShadow = '0 1px 4px rgba(0,0,0,0.3)';
+                firstChild.style.cursor = 'pointer';
+                firstChild.style.marginRight = '10px';
+                firstChild.style.padding = '0px';
+                firstChild.title = 'Your Location'
+                controlDiv.appendChild(firstChild);
+
+                var secondChild = document.createElement('div');
+                secondChild.style.margin = '5px';
+                secondChild.style.width = '18px';
+                secondChild.style.height = '18px';
+                secondChild.style.backgroundImage = 'url(https://maps.gstatic.com/tactile/mylocation/mylocation-sprite-1x.png)';
+                secondChild.style.backgroundSize = '180px 18px';
+                secondChild.style.backgroundPosition = '0px 0px';
+                secondChild.style.backgroundRepeat = 'no-repeat';
+                secondChild.id = 'you_location_img';
+                firstChild.appendChild(secondChild);
+
+                controlDiv.addEventListener('click', function () {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(function (position) {
+                            var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+                            map.setCenter(latlng);
+                        })
+                    }
+                })
+                controlDiv.index = 1;
+                map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
+            }
+        }
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <span class="navbar-brand">Gas station finder</span>
+</nav>
+<div class="container-fluid">
+    <div id="map">
+
+    </div>
+    <div class="left-box">
+        <form action="/objects" type=""><div class="head">
+            Топливо
+        </div>
+        <div class="body">
+            <ul class="list-unstyled">
+                <li class="checkbox">
+                    <label>
+                        <input class="checkbox" type="checkbox" id="id34" name="fluent-type" value="id34"/>
+                        <span>Дизельное топливо</span>
+                    </label>
+                </li>
+                <li class="checkbox">
+                    <label>
+                        <input type="checkbox" id="id35" name="fluent-type" value="id34"/>
+                        <span>АИ-92</span>
+                    </label>
+                </li>
+                <li class="checkbox">
+                    <label>
+                        <input type="checkbox" id="id36" name="fluent-type" value="id34"/>
+                        <span>АИ-95</span>
+                    </label>
+                </li>
+                <li class="checkbox">
+                    <label>
+                        <input type="checkbox" id="id37" name="fluent-type" value="id34"/>
+                        <span>Газ</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <div class="head">
+            Услуги
+        </div>
+        <div class="body">
+            <ul class="list-unstyled">
+                <li class="checkbox">
+                    <label>
+                        <input type="checkbox"/>
+                        <span>Мойка</span>
+                    </label>
+                </li>
+                <li class="checkbox">
+                    <label>
+                        <input type="checkbox"/>
+                        <span>СТО</span>
+                    </label>
+                </li>
+                <li class="checkbox">
+                    <label>
+                        <input type="checkbox"/>
+                        <span>Магазин</span>
+                    </label>
+                </li>
+                <li class="checkbox">
+                    <label>
+                        <input type="checkbox"/>
+                        <span>Wi-fi</span>
+                    </label>
+                </li>
+                <li class="checkbox">
+                    <label>
+                        <input type="checkbox"/>
+                        <span>Автостоянка</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <div class="head">
+            Оператор
+        </div>
+        <div class="body">
+            <ul class="list-unstyled">
+                <li class="checkbox">
+                    <label>
+                        <input type="checkbox"/>
+                        <span>Белоруснефть</span>
+                    </label>
+                </li>
+                <li class="checkbox">
+                    <label>
+                        <input type="checkbox"/>
+                        <span>А-100</span>
+                    </label>
+                </li>
+                <li class="checkbox">
+                    <label>
+                        <input type="checkbox"/>
+                        <span>Лукойл</span>
+                    </label>
+                </li>
+                <li class="checkbox">
+                    <label>
+                        <input type="checkbox"/>
+                        <span>Газпромнефть</span>
+                    </label>
+                </li>
+                <li class="checkbox">
+                    <label>
+                        <input type="checkbox"/>
+                        <span>Трайпл</span>
+                    </label>
+                </li>
+            </ul>
+        </div></form>
+    </div>
+</div>
+<!--<script async defer
+        src="https://maps.googleapis.com/maps/api/js?callback=initMap">
+</script>-->
+</body>
+</html>
