@@ -1,9 +1,9 @@
-package org.mycompany.entity.normalize;
+package org.mycompany.entity;
 
 /**
  * Created by ALEX on 15.04.2016.
  */
-public class FluentType {
+public class BillingType {
 	private Long id;
 	private String name;
 	private String labelImage;

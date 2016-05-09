@@ -1,6 +1,4 @@
-package org.mycompany.entity.normalize;
-
-import org.mycompany.entity.Object;
+package org.mycompany.entity;
 
 /**
  * Created by ALEX on 15.04.2016.
