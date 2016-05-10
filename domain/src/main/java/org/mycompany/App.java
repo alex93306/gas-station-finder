@@ -1,5 +1,9 @@
 package org.mycompany;
 
+import org.mycompany.dao.ObjectDao;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 /**
  * Hello world!
  *
@@ -8,6 +12,9 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        ApplicationContext ap=new AnnotationConfigApplicationContext(new Class[]{AppConfig.class, HibernateConfig.class});
+        ObjectDao objectDao= (ObjectDao) ap.getBean("objectDao");
+
+
     }
 }
